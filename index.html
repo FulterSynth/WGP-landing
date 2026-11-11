@@ -11,81 +11,152 @@
         *{box-sizing:border-box}
         html{scroll-behavior:smooth;background:#e9efeb}
         body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#e9efeb;-webkit-font-smoothing:antialiased}
-        img{display:block;max-width:100%}
+        img{display:block;max-width:100%;height:auto}
         a{text-decoration:none}
-        .site-shell{width:100%;max-width:480px;margin:0 auto;background:var(--paper);min-height:100vh;overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.08)}
-        .topbar{height:58px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;background:#08130f;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
-        .brand-mark{font-weight:1000;font-size:22px;letter-spacing:-1px}
-        .topbar-badge{font-size:12px;font-weight:800;color:#caffd8;background:rgba(38,222,96,.12);border:1px solid rgba(38,222,96,.32);padding:7px 10px;border-radius:999px}
-        .section-pad{padding:34px 18px}
-        .hero{padding-top:28px;background:radial-gradient(circle at 80% 4%,rgba(60,255,121,.18),transparent 25%),linear-gradient(180deg,#f8fff9 0%,#fff 48%)}
-        .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#128e43;margin-bottom:10px}
+        
+        /* FULL-WIDTH LAYOUT (розтягнуто на весь екран) */
+        .site-shell{width:100%;max-width:100%;margin:0 auto;background:var(--paper);min-height:100vh;box-shadow:none}
+        
+        .topbar{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:#08130f;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100}
+        .brand-mark{font-weight:1000;font-size:24px;letter-spacing:-1px}
+        .topbar-badge{font-size:13px;font-weight:800;color:#caffd8;background:rgba(38,222,96,.12);border:1px solid rgba(38,222,96,.32);padding:8px 14px;border-radius:999px}
+        
+        .section-pad{padding:50px 24px;max-width:1100px;margin:0 auto}
+        
+        .hero{background:radial-gradient(circle at 80% 4%,rgba(60,255,121,.18),transparent 25%),linear-gradient(180deg,#f8fff9 0%,#fff 48%);text-align:center;padding-top:40px}
+        .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;max-width:1100px;margin:0 auto;text-align:left}
+        
+        .eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#128e43;margin-bottom:12px;display:inline-flex;align-items:center}
         .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(35,215,95,.13);margin-right:7px}
-        h1{font-size:36px;line-height:.98;letter-spacing:-1.8px;margin-bottom:14px;font-weight:950}
+        
+        h1{font-size:42px;line-height:1.05;letter-spacing:-1.8px;margin-bottom:16px;font-weight:950}
         h1 span{color:#159c47}
-        .hero-copy{font-size:16px;line-height:1.48;color:#516158;margin-bottom:20px}
-        .offer-card{display:flex;align-items:center;justify-content:space-between;margin-top:14px;background:#0c1712;color:#fff;border-radius:20px;padding:16px 17px}
-        .price{font-size:38px;font-weight:950;line-height:1;margin-top:4px;letter-spacing:-1.8px}
-        .price small{font-size:18px;letter-spacing:-.4px}
-        .cod-badge{display:flex;align-items:center;gap:8px;background:rgba(42,229,100,.11);border:1px solid rgba(42,229,100,.25);padding:10px 12px;border-radius:14px;font-size:23px;font-weight:950;color:#72f79a}
-        .cod-badge span{font-size:11px;line-height:1.15;color:#e9fff0;text-transform:uppercase;letter-spacing:.04em}
-        .order{background:#08130f;color:#fff;padding:34px 18px 44px}
-        .order h2{font-size:31px;margin-top:0}
-        .order-price{font-weight:950;font-size:48px;letter-spacing:-2px;color:#8dffad;margin:4px 0 14px}
-        .order-price span{font-size:21px;letter-spacing:-.4px}
-        .order-form{background:#fff;border-radius:22px;padding:18px;color:var(--ink)}
-        .order-form label{display:block;font-size:12px;font-weight:900;margin:0 0 6px 2px}
-        .order-form input{width:100%;height:53px;border:1px solid #dce7e1;background:#f8fbf9;border-radius:14px;padding:0 14px;font-size:16px;outline:none;margin-bottom:13px;color:#0b1711}
+        .hero-copy{font-size:17px;line-height:1.5;color:#516158;margin-bottom:24px}
+        
+        .offer-card{display:flex;align-items:center;justify-content:space-between;background:#0c1712;color:#fff;border-radius:20px;padding:20px 24px;margin-top:20px}
+        .price{font-size:42px;font-weight:950;line-height:1;margin-top:4px;letter-spacing:-1.8px}
+        .price small{font-size:20px;letter-spacing:-.4px}
+        .cod-badge{display:flex;align-items:center;gap:10px;background:rgba(42,229,100,.11);border:1px solid rgba(42,229,100,.25);padding:12px 16px;border-radius:14px;font-size:24px;font-weight:950;color:#72f79a}
+        .cod-badge span{font-size:12px;line-height:1.15;color:#e9fff0;text-transform:uppercase;letter-spacing:.04em}
+
+        /* Product Image Box */
+        .hero-image-box {background:var(--soft);border-radius:24px;padding:20px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);min-height:350px}
+        .hero-image-box img {width:100%;max-height:400px;object-fit:contain;border-radius:16px}
+
+        /* Features Section */
+        .features{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+        .features h2, .order h2 {font-size:34px;margin-top:0;text-align:center;letter-spacing:-1px}
+        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+        .feature-card{background:var(--paper);padding:24px;border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow)}
+        .feature-card h3{margin-top:0;font-size:19px;color:var(--ink)}
+        .feature-card p{color:var(--muted);font-size:15px;line-height:1.45;margin-bottom:0}
+
+        /* Order Section */
+        .order{background:#08130f;color:#fff;padding:60px 24px}
+        .order-container{max-width:550px;margin:0 auto}
+        .order-price{font-weight:950;font-size:52px;letter-spacing:-2px;color:#8dffad;margin:4px 0 20px;text-align:center}
+        .order-price span{font-size:22px;letter-spacing:-.4px}
+        
+        .order-form{background:#fff;border-radius:24px;padding:24px;color:var(--ink);box-shadow:0 20px 50px rgba(0,0,0,.3)}
+        .order-form label{display:block;font-size:13px;font-weight:900;margin:0 0 6px 4px}
+        .order-form input{width:100%;height:56px;border:1px solid #dce7e1;background:#f8fbf9;border-radius:14px;padding:0 16px;font-size:16px;outline:none;margin-bottom:16px;color:#0b1711}
         .order-form input:focus{border-color:#31d968;box-shadow:0 0 0 3px rgba(49,217,104,.12)}
-        .order-form button{width:100%;height:58px;border:0;border-radius:15px;background:linear-gradient(90deg,var(--green),var(--green2));color:#07110d;font-size:17px;font-weight:950;padding:0 17px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-        .form-note{text-align:center;color:#4e5c55;font-size:12px;font-weight:800;margin:10px 0 0}
-        footer{background:#050c09;color:#718078;text-align:center;padding:22px 18px 44px;font-size:11px;line-height:1.45}
+        .order-form button{width:100%;height:60px;border:0;border-radius:16px;background:linear-gradient(90deg,var(--green),var(--green2));color:#07110d;font-size:18px;font-weight:950;padding:0 20px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:opacity .2s}
+        .order-form button:hover{opacity:.9}
+        .form-note{text-align:center;color:#4e5c55;font-size:13px;font-weight:800;margin:14px 0 0}
+        
+        footer{background:#050c09;color:#718078;text-align:center;padding:30px 24px;font-size:13px;line-height:1.5}
+
+        /* Responsive */
+        @media(max-width: 768px){
+            .hero-grid{grid-template-columns:1fr;gap:24px;text-align:center}
+            .hero-image-box {min-height:260px}
+            .features-grid{grid-template-columns:1fr}
+            h1{font-size:32px}
+            .offer-card{flex-direction:column;gap:16px;text-align:center}
+        }
     </style>
 </head>
 <body>
     <main class="site-shell">
+        <!-- Шапка -->
         <header class="topbar">
             <div class="brand-mark">WGP</div>
             <div class="topbar-badge">Оплата при отриманні</div>
         </header>
 
+        <!-- Головний екран (Hero) -->
         <section class="hero section-pad">
-            <div class="eyebrow"><span class="pulse"></span> Інтернет навіть під час відключень</div>
-            <h1>ДБЖ для роутера<br><span>до 14 годин автономності</span></h1>
-            <p class="hero-copy">Підтримує живлення роутера, ONU/модема та сумісних пристроїв, коли мережа зникає.</p>
-            
-            <div class="offer-card">
+            <div class="hero-grid">
                 <div>
-                    <div style="font-size:12px;color:#aeb9b3;">Спеціальна ціна</div>
-                    <div class="price">1390 <small>грн</small></div>
+                    <div class="eyebrow"><span class="pulse"></span> Інтернет навіть під час відключень</div>
+                    <h1>ДБЖ для роутера<br><span>до 14 годин автономності</span></h1>
+                    <p class="hero-copy">Надійне джерело безперебійного живлення WGP підтримує роботу роутера, ONU-термінала та інших гаджетів при відключенні світла.</p>
+                    
+                    <div class="offer-card">
+                        <div>
+                            <div style="font-size:12px;color:#aeb9b3;">Спеціальна ціна</div>
+                            <div class="price">1390 <small>грн</small></div>
+                        </div>
+                        <div class="cod-badge">
+                            ⚡ <span>Швидка<br>доставка</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="cod-badge">
-                    ⚡ <span>Швидка<br>доставка</span>
+                
+                <!-- Блок із зображенням товару -->
+                <div class="hero-image-box">
+                    <!-- Замініть src на посилання на ваше реальне фото товару -->
+                    <img src="images/wgp-ups.jpg" alt="ДБЖ WGP для роутера" onerror="this.src='https://via.placeholder.com/400x350?text=WGP+Mini+DC+UPS'">
                 </div>
             </div>
         </section>
 
-        <section class="order" id="order">
-            <h2>Оформлення замовлення</h2>
-            <div class="order-price">1390 <span>грн</span></div>
-            
-            <form class="order-form" id="keycrm-form">
-                <label for="name">Ваше ім'я</label>
-                <input type="text" id="name" name="name" placeholder="Іван Іванов" required>
-
-                <label for="phone">Ваш телефон</label>
-                <input type="tel" id="phone" name="phone" placeholder="+380XXXXXXXXX" required>
-
-                <button type="submit">Оформити замовлення <span>→</span></button>
-                <p class="form-note">Оплата здійснюється при отриманні товару</p>
-            </form>
+        <!-- Блок характеристик та переваг -->
+        <section class="features section-pad">
+            <h2>Чому обирають ДБЖ WGP?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🔋 Велика ємність</h3>
+                    <p>Акумулятор на 16800 мА·год забезпечує безперервну роботу інтернету до 14 годин поспіль.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔌 Універсальні виходи</h3>
+                    <p>Підтримка стандартів 5V, 9V та 12V дозволяє підключати більшість моделей роутерів та медіаконвертерів.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚡ Автоматичний перехід</h3>
+                    <p>Миттєве перемикання на акумуляторне живлення при зникненні електроенергії в мережі без перезавантаження пристроїв.</p>
+                </div>
+            </div>
         </section>
 
+        <!-- Форма замовлення -->
+        <section class="order" id="order">
+            <div class="order-container">
+                <h2>Оформлення замовлення</h2>
+                <div class="order-price">1390 <span>грн</span></div>
+                
+                <form class="order-form" id="keycrm-form">
+                    <label for="name">Ваше ім'я та прізвище</label>
+                    <input type="text" id="name" name="name" placeholder="Іван Іванов" required>
+
+                    <label for="phone">Номер телефону</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+380XXXXXXXXX" required>
+
+                    <button type="submit">Оформити замовлення <span>→</span></button>
+                    <p class="form-note">📦 Оплата здійснюється при отриманні у відділенні пошти</p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Підвал -->
         <footer>
             <p>© 2026 WGP Official. Всі права захищені.</p>
         </footer>
     </main>
 
+    <!-- Скрипт відправки в KeyCRM -->
     <script>
         document.getElementById('keycrm-form').addEventListener('submit', async function(e) {
             e.preventDefault();
