@@ -14,8 +14,8 @@
         img{display:block;max-width:100%;height:auto}
         a{text-decoration:none}
         
-        /* FULL-WIDTH LAYOUT (розтягнуто на весь екран) */
-        .site-shell{width:100%;max-width:100%;margin:0 auto;background:var(--paper);min-height:100vh;box-shadow:none}
+        /* Full-width layout */
+        .site-shell{width:100%;max-width:100%;margin:0 auto;background:var(--paper);min-height:100vh}
         
         .topbar{height:64px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;background:#08130f;color:#fff;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;z-index:100}
         .brand-mark{font-weight:1000;font-size:24px;letter-spacing:-1px}
@@ -23,8 +23,8 @@
         
         .section-pad{padding:50px 24px;max-width:1100px;margin:0 auto}
         
-        .hero{background:radial-gradient(circle at 80% 4%,rgba(60,255,121,.18),transparent 25%),linear-gradient(180deg,#f8fff9 0%,#fff 48%);text-align:center;padding-top:40px}
-        .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;max-width:1100px;margin:0 auto;text-align:left}
+        .hero{background:radial-gradient(circle at 80% 4%,rgba(60,255,121,.18),transparent 25%),linear-gradient(180deg,#f8fff9 0%,#fff 48%);padding-top:40px}
+        .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
         
         .eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.1em;font-weight:900;color:#128e43;margin-bottom:12px;display:inline-flex;align-items:center}
         .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(35,215,95,.13);margin-right:7px}
@@ -39,17 +39,31 @@
         .cod-badge{display:flex;align-items:center;gap:10px;background:rgba(42,229,100,.11);border:1px solid rgba(42,229,100,.25);padding:12px 16px;border-radius:14px;font-size:24px;font-weight:950;color:#72f79a}
         .cod-badge span{font-size:12px;line-height:1.15;color:#e9fff0;text-transform:uppercase;letter-spacing:.04em}
 
-        /* Product Image Box */
-        .hero-image-box {background:var(--soft);border-radius:24px;padding:20px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);min-height:350px}
-        .hero-image-box img {width:100%;max-height:400px;object-fit:contain;border-radius:16px}
+        /* Hero Image & Gallery */
+        .hero-image-box {background:var(--soft);border-radius:24px;padding:16px;border:1px solid var(--line);text-align:center}
+        .hero-image-box img {width:100%;max-height:380px;object-fit:cover;border-radius:16px;margin-bottom:12px}
+        .gallery-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+        .gallery-grid img {width:100%;height:80px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+
+        /* About Model Section */
+        .about-model {background:#fff;border-bottom:1px solid var(--line)}
+        .about-model h2, .features h2, .faq h2, .order h2 {font-size:34px;margin-top:0;text-align:center;letter-spacing:-1px}
+        .about-grid {display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:30px}
+        .about-text p {font-size:16px;line-height:1.6;color:var(--muted);margin-bottom:16px}
 
         /* Features Section */
-        .features{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-        .features h2, .order h2 {font-size:34px;margin-top:0;text-align:center;letter-spacing:-1px}
+        .features{background:var(--soft);border-bottom:1px solid var(--line)}
         .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
         .feature-card{background:var(--paper);padding:24px;border-radius:20px;border:1px solid var(--line);box-shadow:var(--shadow)}
         .feature-card h3{margin-top:0;font-size:19px;color:var(--ink)}
         .feature-card p{color:var(--muted);font-size:15px;line-height:1.45;margin-bottom:0}
+
+        /* FAQ Section */
+        .faq {background:#fff;border-bottom:1px solid var(--line)}
+        .faq-list {max-width:800px;margin:30px auto 0}
+        .faq-item {background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+        .faq-item h3 {margin:0 0 8px;font-size:18px;color:var(--ink)}
+        .faq-item p {margin:0;color:var(--muted);font-size:15px;line-height:1.5}
 
         /* Order Section */
         .order{background:#08130f;color:#fff;padding:60px 24px}
@@ -67,10 +81,8 @@
         
         footer{background:#050c09;color:#718078;text-align:center;padding:30px 24px;font-size:13px;line-height:1.5}
 
-        /* Responsive */
         @media(max-width: 768px){
-            .hero-grid{grid-template-columns:1fr;gap:24px;text-align:center}
-            .hero-image-box {min-height:260px}
+            .hero-grid, .about-grid{grid-template-columns:1fr;gap:24px}
             .features-grid{grid-template-columns:1fr}
             h1{font-size:32px}
             .offer-card{flex-direction:column;gap:16px;text-align:center}
@@ -85,7 +97,7 @@
             <div class="topbar-badge">Оплата при отриманні</div>
         </header>
 
-        <!-- Головний екран (Hero) -->
+        <!-- Головний екран (Hero з картинками) -->
         <section class="hero section-pad">
             <div class="hero-grid">
                 <div>
@@ -104,29 +116,66 @@
                     </div>
                 </div>
                 
-                <!-- Блок із зображенням товару -->
+                <!-- Блок із зображеннями товару -->
                 <div class="hero-image-box">
-                    <!-- Замініть src на посилання на ваше реальне фото товару -->
-                    <img src="images/wgp-ups.jpg" alt="ДБЖ WGP для роутера" onerror="this.src='https://via.placeholder.com/400x350?text=WGP+Mini+DC+UPS'">
+                    <img src="images/wgp-main.jpg" alt="ДБЖ WGP основне фото" onerror="this.src='https://via.placeholder.com/500x350?text=WGP+UPS+Main'">
+                    <div class="gallery-grid">
+                        <img src="images/wgp-1.jpg" alt="Фото 1" onerror="this.src='https://via.placeholder.com/150?text=View+1'">
+                        <img src="images/wgp-2.jpg" alt="Фото 2" onerror="this.src='https://via.placeholder.com/150?text=View+2'">
+                        <img src="images/wgp-3.jpg" alt="Фото 3" onerror="this.src='https://via.placeholder.com/150?text=View+3'">
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Блок характеристик та переваг -->
+        <!-- Коротко про модель -->
+        <section class="about-model section-pad">
+            <h2>Коротко про модель WGP</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Міні-ДБЖ WGP — це сучасне рішення для забезпечення безперебійного інтернет-зв'язку у вашому домі. Пристрій розроблений спеціально для живлення маршрутизаторів (роутерів) та оптичних терміналів (ONU/GPON), коли зникає електроенергія.</p>
+                    <p>Завдяки вбудованим літій-іонним акумуляторам загальною ємністю 16800 мА·год, ДБЖ здатен автономно живити ваше обладнання **від 8 до 14 годин** (залежно від енергоспоживання пристроїв).</p>
+                </div>
+                <div class="hero-image-box" style="background:var(--soft);">
+                    <img src="images/wgp-about.jpg" alt="Про модель" onerror="this.src='https://via.placeholder.com/450x280?text=WGP+Specs+View'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Переваги -->
         <section class="features section-pad">
-            <h2>Чому обирають ДБЖ WGP?</h2>
+            <h2>Основні переваги</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <h3>🔋 Велика ємність</h3>
-                    <p>Акумулятор на 16800 мА·год забезпечує безперервну роботу інтернету до 14 годин поспіль.</p>
+                    <p>Акумулятор на 16800 мА·год забезпечує безперервну роботу інтернету протягом усього часу відключення.</p>
                 </div>
                 <div class="feature-card">
                     <h3>🔌 Універсальні виходи</h3>
-                    <p>Підтримка стандартів 5V, 9V та 12V дозволяє підключати більшість моделей роутерів та медіаконвертерів.</p>
+                    <p>Підтримка виходів 5V, 9V та 12V дозволяє підключити практично будь-яку модель роутера чи медіаконвертера.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>⚡ Автоматичний перехід</h3>
-                    <p>Миттєве перемикання на акумуляторне живлення при зникненні електроенергії в мережі без перезавантаження пристроїв.</p>
+                    <h3>⚡ Автоматичне перемикання</h3>
+                    <p>Миттєвий перехід на акумуляторне живлення при зникненні світла без перезавантаження та втрати зв'язку.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Питання і відповіді (FAQ) -->
+        <section class="faq section-pad">
+            <h2>Часті питання і відповіді</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Скільки часу роутер працюватиме від цього ДБЖ?</h3>
+                    <p>У середньому комплект (роутер + оптичний термінал ONU) працює від 8 до 14 годин залежно від навантаження та споживання вашого обладнання.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Чи підійде цей пристрій під мій роутер?</h3>
+                    <p>Так, у комплекті йдуть необхідні кабелі та роз'єми для підключення більшості сучасних роутерів і терміналів на 5V, 9V або 12V.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Як здійснюється оплата?</h3>
+                    <p>Оплата здійснюється виключно при отриманні товару (післяплата) у відділенні пошти після огляду та перевірки.</p>
                 </div>
             </div>
         </section>
@@ -170,7 +219,7 @@
 
             // Конфігурація KeyCRM
             const apiKey = 'MzE4ZmM5OTczY2Y4NGRhODNiNWQxZWRhZTBlYzRiMjliZjBmZmIyNg';
-            const sourceId = 1; // ID джерела
+            const sourceId = 1;
 
             const payload = {
                 source_id: sourceId,
