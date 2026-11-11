@@ -1,29 +1,19 @@
 /* =========================================================
-   WGP ДБЖ — script.js (фінальна версія)
-   Відправка замовлень у KeyCRM (sunsetshop.keycrm.app)
-   через Cloudflare Worker
+   WGP ДБЖ — script.js (пряма відправка в KeyCRM)
    ========================================================= */
 
 (function () {
   'use strict';
 
-  /* ---------------------------------------------------------
-     ⚙️ НАЛАШТУВАННЯ — ЗАМІНІТЬ ТІЛЬКИ ЦЕ
-     --------------------------------------------------------- */
-  const WORKER_URL = 'https://keycrm-proxy.635mode.workers.dev';
+  // ⚠️ КЛЮЧ KEYCRM (буде видний у коді — це для старту)
+  const KEYCRM_API_KEY = 'MzE4ZmM5OTczY2Y4NGRhODNiNWQxZWRhZTBlYzRiMjliZjBmZmIyNg';
+  const KEYCRM_SOURCE_ID = 1;
 
-  /* ---------------------------------------------------------
-     ЕЛЕМЕНТИ
-     --------------------------------------------------------- */
   const form = document.getElementById('orderForm');
   const submitBtn = document.getElementById('submitBtn');
   const formNote = document.getElementById('formNote');
   const stickyBuy = document.getElementById('stickyBuy');
   const orderSection = document.getElementById('order');
-
-  /* ---------------------------------------------------------
-     УТИЛІТИ
-     --------------------------------------------------------- */
 
   function showNote(text, type) {
     if (!formNote) return;
@@ -44,19 +34,6 @@
     return /^\+380\d{9}$/.test(phone);
   }
 
-  function getUtm() {
-    const params = new URLSearchParams(window.location.search);
-    const utm = {};
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(function (k) {
-      const v = params.get(k);
-      if (v) utm[k] = v;
-    });
-    return utm;
-  }
-
-  /* ---------------------------------------------------------
-     ВАЛІДАЦІЯ
-     --------------------------------------------------------- */
   function validate(data) {
     if (!data.name || data.name.length < 2) {
       return 'Вкажіть ім\u2019я (мінімум 2 символи)';
@@ -68,16 +45,12 @@
     return null;
   }
 
-  /* ---------------------------------------------------------
-     ВІДПРАВКА В KEYCRM
-     --------------------------------------------------------- */
   async function submitOrder(data) {
     const phone = normalizePhone(data.phone);
-    const utm = getUtm();
 
     const payload = {
       title: 'Замовлення WGP — ' + data.name,
-      source_id: 1,
+      source_id: KEYCRM_SOURCE_ID,
       manager_comment: data.comment || '',
       contact: {
         full_name: data.name,
@@ -85,39 +58,25 @@
       }
     };
 
-    Object.keys(utm).forEach(function (k) {
-      payload[k] = utm[k];
-    });
-
-    const res = await fetch(WORKER_URL, {
+    // ПРЯМА ВІДПРАВКА В KEYCRM
+    const res = await fetch('https://openapi.keycrm.app/v1/pipelines/cards', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + KEYCRM_API_KEY
+      },
       body: JSON.stringify(payload)
     });
 
-    // Обробка конкретних статусів
-    if (res.status === 403) {
-      throw new Error('FORBIDDEN');
-    }
-    if (res.status === 401) {
-      throw new Error('UNAUTHORIZED');
-    }
-    if (res.status === 422) {
-      const body = await res.text().catch(function () { return ''; });
-      console.error('[WGP] 422 body:', body);
-      throw new Error('INVALID_PAYLOAD');
-    }
     if (!res.ok) {
       const text = await res.text().catch(function () { return ''; });
-      throw new Error('HTTP_' + res.status + ': ' + text);
+      throw new Error('HTTP ' + res.status + ': ' + text);
     }
 
     return res.json().catch(function () { return {}; });
   }
 
-  /* ---------------------------------------------------------
-     ОБРОБКА ФОРМИ
-     --------------------------------------------------------- */
   if (form) {
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -141,38 +100,22 @@
 
       try {
         await submitOrder(data);
-
         showNote('Дякуємо! Ми зв\u2019яжемося з вами найближчим часом.', 'success');
         form.reset();
         submitBtn.innerHTML = 'Замовлення прийнято ✓';
-
         setTimeout(function () {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
         }, 3000);
-
       } catch (err) {
         console.error('[WGP] Помилка:', err.message);
-
-        if (err.message === 'FORBIDDEN') {
-          showNote('Сервіс тимчасово недоступний. Спробуйте через кілька хвилин.', 'error');
-        } else if (err.message === 'UNAUTHORIZED') {
-          showNote('Помилка налаштування. Зв\u2019яжіться з нами.', 'error');
-        } else if (err.message === 'INVALID_PAYLOAD') {
-          showNote('Перевірте дані та спробуйте ще раз.', 'error');
-        } else {
-          showNote('Помилка відправки. Спробуйте ще раз.', 'error');
-        }
-
+        showNote('Помилка відправки. Спробуйте ще раз.', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
       }
     });
   }
 
-  /* ---------------------------------------------------------
-     STICKY-BUY
-     --------------------------------------------------------- */
   if (stickyBuy && orderSection && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       function (entries) {
