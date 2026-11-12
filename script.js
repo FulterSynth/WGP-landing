@@ -51,8 +51,7 @@
       product: 'ДБЖ WGP для роутера',
       price: 1390,
       name: data.name,
-      phone: phone,
-      comment: data.comment || ''
+      phone: phone
     };
 
     const res = await fetch(MAKE_WEBHOOK_URL, {
@@ -74,8 +73,7 @@
 
       const data = {
         name: document.getElementById('name').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        comment: document.getElementById('comment').value.trim()
+        phone: document.getElementById('phone').value.trim()
       };
 
       const error = validate(data);
