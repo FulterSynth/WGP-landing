@@ -1,6 +1,5 @@
 /* =========================================================
    WGP ДБЖ — style.css
-   Перенесено 1:1 з оригінального <style>
    ========================================================= */
 
 :root {
@@ -488,6 +487,7 @@ footer p { margin: 3px 0; }
   z-index: 20;
   left: 50%;
   bottom: max(10px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
   width: calc(100% - 20px);
   max-width: 460px;
   background: rgba(7, 17, 13, .94);
