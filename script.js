@@ -1,13 +1,12 @@
 /* =========================================================
-   WGP ДБЖ — script.js (пряма відправка в KeyCRM)
+   WGP ДБЖ — script.js (зв'язок через Make Webhook)
    ========================================================= */
 
 (function () {
   'use strict';
 
-  // ⚠️ КЛЮЧ KEYCRM (буде видний у коді — це для старту)
-  const KEYCRM_API_KEY = 'MzE4ZmM5OTczY2Y4NGRhODNiNWQxZWRhZTBlYzRiMjliZjBmZmIyNg';
-  const KEYCRM_SOURCE_ID = 1;
+  // Твоє посилання на вебхук у Make
+  const MAKE_WEBHOOK_URL = 'https://hook.eu1.make.com/hmmvr88wndy4t4h026hmkkbwmene7bjk';
 
   const form = document.getElementById('orderForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -49,32 +48,24 @@
     const phone = normalizePhone(data.phone);
 
     const payload = {
-      title: 'Замовлення WGP — ' + data.name,
-      source_id: KEYCRM_SOURCE_ID,
-      manager_comment: data.comment || '',
-      contact: {
-        full_name: data.name,
-        phone: phone
-      }
+      product: 'ДБЖ WGP для роутера',
+      price: 1390,
+      name: data.name,
+      phone: phone,
+      comment: data.comment || ''
     };
 
-    // ПРЯМА ВІДПРАВКА В KEYCRM
-    const res = await fetch('https://openapi.keycrm.app/v1/pipelines/cards', {
+    const res = await fetch(MAKE_WEBHOOK_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + KEYCRM_API_KEY
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload)
     });
 
     if (!res.ok) {
-      const text = await res.text().catch(function () { return ''; });
-      throw new Error('HTTP ' + res.status + ': ' + text);
+      throw new Error('HTTP ' + res.status);
     }
-
-    return res.json().catch(function () { return {}; });
   }
 
   if (form) {
